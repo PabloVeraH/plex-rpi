@@ -5,11 +5,11 @@ services:
   samba:
     image: dperson/samba # no hay tag con versiones, solo latest
     restart: always
-    command: '-u "pi;password" -s "media;/media;yes;no" -s "downloads;/downloads;yes;no"'
+    command: '-u "${SAMBA_CRED}" -s "media;/media;yes;no" -s "downloads;/downloads;yes;no"'
     stdin_open: true
     tty: true
     environment:
-      - TZ=America/Argentina/Mendoza
+      - TZ=America/Santiago
     ports:
       - 139:139
       - 445:445
@@ -27,9 +27,9 @@ services:
     #  - 32400:32400
     #  - 33400:33400
     environment:
-      - TZ=America/Argentina/Mendoza
+      - TZ=America/Santiago
     volumes:
-      - ${STORAGE}/Plex Media Server:/root/Library/Application Support/Plex Media Server
+      - ${STORAGE}/Plex:/root/Library/Application Support/Plex Media Server
       - ${MEDIA}:/media
       - ${STORAGE}/tmp:/tmp
     restart: unless-stopped
@@ -50,7 +50,7 @@ services:
     restart: unless-stopped
 
   flexget:
-    image: wiserain/flexget:3.5
+    image: wiserain/flexget:3.9
     volumes:
       - ./flexget:/config
       - ./flexget/custom-cont-init.d:/custom-cont-init.d

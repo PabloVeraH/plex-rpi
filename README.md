@@ -57,12 +57,14 @@ sudo apt-get update && sudo apt-get install -y --no-install-recommends docker-ce
 Modificá tu docker config para que guarde los temps en el disco:
 
 ```
+#Agrega la carpeta /mnt/storage
+mkdir /mnt/storage
 sudo vim /etc/default/docker
 # Agregar esta linea al final con la ruta de tu disco externo montado
 export DOCKER_TMPDIR="/mnt/storage/docker-tmp"
 ```
 
-Agregar tu usuario al grupo docker 
+Agregar tu usuario al grupo docker
 
 ```
 # Add kbs to docker group
